@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAIDA - Pan-Asian International Development Association</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Navigation */
+        nav {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #2563eb;
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+
+        .lang-btn {
+            padding: 5px 12px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 150px 2rem 100px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin: 0 10px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2563eb;
+        }
+
+        /* About Section */
+        #about {
+            background: #f8fafc;
+        }
+
+        .about-content {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-text {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            flex: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 300px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* Programs Grid */
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .program-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .program-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .program-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .program-card h3 {
+            color: #2563eb;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Gallery Section */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 250px;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Blog Section */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-date {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-card h3 {
+            color: #2563eb;
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        /* Donation Section */
+        #donate {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .donation-options {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .donation-amount {
+            background: white;
+            color: #667eea;
+            padding: 20px 40px;
+            border-radius: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+            border: 3px solid transparent;
+        }
+
+        .donation-amount:hover, .donation-amount.selected {
+            transform: scale(1.05);
+            border-color: #fbbf24;
+        }
+
+        .custom-amount {
+            margin-top: 1rem;
+        }
+
+        .custom-amount input {
+            padding: 15px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            border: none;
+            width: 200px;
+            text-align: center;
+        }
+
+        .donate-button {
+            background: #fbbf24;
+            color: #1e293b;
+            padding: 20px 50px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: transform 0.3s;
+        }
+
+        .donate-button:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Impact Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: #f8fafc;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+            width: 100%;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .form-message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .form-message.success {
+            background: #d1fae5;
+            color: #065f46;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: #1e293b;
+            color: white;
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: #fbbf24;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #475569;
+        }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .donation-options {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-button {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">PAIDA</div>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul id="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#programs">Programs</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#blog">News</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li class="lang-switcher">
+                    <button class="lang-btn active" onclick="switchLanguage('en')">EN</button>
+                    <button class="lang-btn" onclick="switchLanguage('zh')">中文</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Pan-Asian International Development Association</h1>
+        <p>Empowering Communities Through Education, Environment & Engineering</p>
+        <a href="#contact" class="cta-button">Join as Volunteer</a>
+        <a href="#donate" class="cta-button secondary">Support Our Mission</a>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">About PAIDA</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Founded in Sri Lanka, the Pan-Asian International Development Association (PAIDA) is a leading volunteer organization dedicated to sustainable development across the Asia-Pacific region.</p>
+                <br>
+                <p>We connect passionate volunteers with meaningful projects in education, environmental conservation, and infrastructure development. Whether you're looking for on-site opportunities or remote volunteering, PAIDA offers transformative experiences that create lasting impact.</p>
+                <br>
+                <p>Our grassroots approach ensures that every project addresses real community needs while fostering cultural exchange and global citizenship.</p>
+            </div>
+            <div class="about-image">
+                🌏 Building a Better Asia-Pacific
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs">
+        <h2 class="section-title">Our Programs</h2>
+        <div class="programs-grid">
+            <div class="program-card">
+                <div class="program-icon">📚</div>
+                <h3>Education & Teaching</h3>
+                <p>Support local schools through teaching English, math, science, and vocational skills. Help bridge educational gaps in underserved communities across Asia-Pacific.</p>
+            </div>
+            
+            <div class="program-card">
+                <div class="program-icon">🌱</div>
+                <h3>Environmental Conservation</h3>
+                <p>Join hands in protecting our planet through reforestation, wildlife conservation, marine protection, and sustainable farming initiatives.</p>
+            </div>
+            
+            <div class="program-card">
+                <div class="program-icon">🏗️</div>
+                <h3>Engineering & Infrastructure</h3>
+                <p>Contribute your technical skills to build essential infrastructure like schools, water systems, and renewable energy solutions in rural areas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery">
+        <h2 class="section-title">Project Gallery</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item" onclick="openGallery(0)">
+                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&h=400&fit=crop" alt="Teaching in schools">
+                <div class="gallery-overlay">
+                    <h3>Teaching in Rural Schools</h3>
+                    <p>Sri Lanka, 2024</p>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="openGallery(1)">
+                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=600&h=400&fit=crop" alt="Reforestation">
+                <div class="gallery-overlay">
+                    <h3>Reforestation Project</h3>
+                    <p>Indonesia, 2024</p>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="openGallery(2)">
+                <img src="https://images.unsplash.com/photo-1590935216541-1be3c7b90f8e?w=600&h=400&fit=crop" alt="Water wells">
+                <div class="gallery-overlay">
+                    <h3>Building Water Wells</h3>
+                    <p>Nepal, 2024</p>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="openGallery(3)">
+                <img src="https://images.unsplash.com/photo-1621451537084-482c73073a0f?w=600&h=400&fit=crop" alt="Ocean cleanup">
+                <div class="gallery-overlay">
+                    <h3>Ocean Cleanup Initiative</h3>
+                    <p>Philippines, 2024</p>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="openGallery(4)">
+                <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&h=400&fit=crop" alt="Teacher training">
+                <div class="gallery-overlay">
+                    <h3>Teacher Training Workshop</h3>
+                    <p>Thailand, 2024</p>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="openGallery(5)">
+                <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&h=400&fit=crop" alt="Solar panels">
+                <div class="gallery-overlay">
+                    <h3>Solar Panel Installation</h3>
+                    <p>Cambodia, 2024</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog">
+        <h2 class="section-title">Latest News & Updates</h2>
+        <div class="blog-grid" id="blog-container">
+            <div class="blog-card">
+                <div class="blog-image">
+                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=600&h=400&fit=crop" alt="Tree planting">
+                </div>
+                <div class="blog-content">
+                    <div class="blog-date">January 5, 2026</div>
+                    <h3>500 Trees Planted in Indonesian Rainforest</h3>
+                    <p>Our volunteers successfully completed a major reforestation project, planting 500 native trees in degraded rainforest areas.</p>
+                    <a href="#" class="read-more" onclick="openBlog(0); return false;">Read More →</a>
+                </div>
+            </div>
+            <div class="blog-card">
+                <div class="blog-image">
+                    <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=600&h=400&fit=crop" alt="English teaching">
+                </div>
+                <div class="blog-content">
+                    <div class="blog-date">December 28, 2025</div>
+                    <h3>New English Learning Program Launched</h3>
+                    <p>PAIDA introduces an innovative remote teaching program connecting volunteers worldwide with students in rural communities.</p>
+                    <a href="#" class="read-more" onclick="openBlog(1); return false;">Read More →</a>
+                </div>
+            </div>
+            <div class="blog-card">
+                <div class="blog-image">
+                    <img src="https://images.unsplash.com/photo-1569230919100-d3fd5e1132f4?w=600&h=400&fit=crop" alt="Award ceremony">
+                </div>
+                <div class="blog-content">
+                    <div class="blog-date">December 15, 2025</div>
+                    <h3>PAIDA Wins Regional Development Award</h3>
+                    <p>Recognized for outstanding contribution to sustainable development and community empowerment in the Asia-Pacific region.</p>
+                    <a href="#" class="read-more" onclick="openBlog(2); return false;">Read More →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donation Section -->
+    <section id="donate">
+        <h2 class="section-title">Support Our Mission</h2>
+        <p style="text-align: center; font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.95;">Your donation helps us provide education, protect the environment, and build infrastructure in communities that need it most.</p>
+        
+        <div class="donation-options">
+            <div class="donation-amount" onclick="selectDonation(25)">$25</div>
+            <div class="donation-amount" onclick="selectDonation(50)">$50</div>
+            <div class="donation-amount" onclick="selectDonation(100)">$100</div>
+            <div class="donation-amount" onclick="selectDonation(250)">$250</div>
+        </div>
+        
+        <div class="custom-amount">
+            <input type="number" id="custom-donation" placeholder="Custom Amount" min="1">
+        </div>
+        
+        <button class="donate-button" onclick="processDonation()">Donate Now</button>
+        <p style="text-align: center; margin-top: 1rem; opacity: 0.9; font-size: 0.9rem;">Secure payment powered by Stripe</p>
+    </section>
+
+    <!-- Impact Stats -->
+    <section id="impact">
+        <h2 class="section-title">Our Impact</h2>
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number">5,247</div>
+                <div class="stat-label">Volunteers Mobilized</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">15</div>
+                <div class="stat-label">Countries Served</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">238</div>
+                <div class="stat-label">Active Projects</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">52,840</div>
+                <div class="stat-label">Lives Impacted</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">Get Involved</h2>
+        <div class="contact-form">
+            <form name="volunteer-application" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                <input type="hidden" name="form-name" value="volunteer-application">
+                <p class="hidden">
+                    <label>Don't fill this out if you're human: <input name="bot-field"></label>
+                </p>
+                
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Email Address *</label>
+                    <input type="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Country</label>
+                    <input type="text" name="country">
+                </div>
+                
+                <div class="form-group">
+                    <label>Program of Interest</label>
+                    <select name="interest">
+                        <option value="">-- Select --</option>
+                        <option value="education">Education & Teaching</option>
+                        <option value="environment">Environmental Conservation</option>
+                        <option value="engineering">Engineering & Infrastructure</option>
+                        <option value="remote">Remote Volunteering</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Tell Us About Yourself *</label>
+                    <textarea name="message" required placeholder="Share your background, skills, and why you want to volunteer with PAIDA..."></textarea>
+                </div>
+                
+                <button type="submit" class="submit-button">Submit Application</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>PAIDA</h4>
+                <p>Pan-Asian International Development Association</p>
+                <p style="margin-top: 1rem;">Founded in Sri Lanka</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#programs">Our Programs</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#blog">News & Updates</a></li>
+                    <li><a href="/admin">Admin Login</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Get Involved</h4>
+                <ul>
+                    <li><a href="#contact">Volunteer Application</a></li>
+                    <li><a href="#donate">Make a Donation</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Email: info@paida.org</p>
+                <p>Phone: +94 11 234 5678</p>
+                <p>Address: Colombo, Sri Lanka</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; <span id="year"></span> Pan-Asian International Development Association. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="modal" class="modal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        let currentLang
