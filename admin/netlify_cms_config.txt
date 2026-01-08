@@ -1,0 +1,61 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Title (English)", name: "title_en", widget: "string"}
+      - {label: "Title (Chinese)", name: "title_zh", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Featured Image", name: "image", widget: "image"}
+      - {label: "Excerpt (English)", name: "excerpt_en", widget: "text"}
+      - {label: "Excerpt (Chinese)", name: "excerpt_zh", widget: "text"}
+      - {label: "Body (English)", name: "body_en", widget: "markdown"}
+      - {label: "Body (Chinese)", name: "body_zh", widget: "markdown"}
+
+  - name: "gallery"
+    label: "Gallery Projects"
+    folder: "content/gallery"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Project Name (English)", name: "name_en", widget: "string"}
+      - {label: "Project Name (Chinese)", name: "name_zh", widget: "string"}
+      - {label: "Location", name: "location", widget: "string"}
+      - {label: "Year", name: "year", widget: "string"}
+      - {label: "Image", name: "image", widget: "image"}
+      - {label: "Description (English)", name: "description_en", widget: "text"}
+      - {label: "Description (Chinese)", name: "description_zh", widget: "text"}
+      - {label: "Order", name: "order", widget: "number", default: 0}
+
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - name: "general"
+        label: "General Settings"
+        file: "content/settings/general.json"
+        fields:
+          - {label: "Site Title (English)", name: "site_title_en", widget: "string"}
+          - {label: "Site Title (Chinese)", name: "site_title_zh", widget: "string"}
+          - {label: "Site Description (English)", name: "description_en", widget: "text"}
+          - {label: "Site Description (Chinese)", name: "description_zh", widget: "text"}
+          - {label: "Contact Email", name: "contact_email", widget: "string"}
+          - {label: "Contact Phone", name: "contact_phone", widget: "string"}
+          - {label: "Address", name: "address", widget: "string"}
+      
+      - name: "stats"
+        label: "Impact Statistics"
+        file: "content/settings/stats.json"
+        fields:
+          - {label: "Volunteers Mobilized", name: "volunteers", widget: "number"}
+          - {label: "Countries Served", name: "countries", widget: "number"}
+          - {label: "Active Projects", name: "projects", widget: "number"}
+          - {label: "Lives Impacted", name: "lives", widget: "number"}
